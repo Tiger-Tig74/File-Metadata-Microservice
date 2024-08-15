@@ -17,7 +17,7 @@ const upload = multer({ storage: storage });
 
 // Route for serving the HTML form
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'views', 'index.html'));
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 // Route for handling file uploads and returning metadata
