@@ -1,7 +1,7 @@
 {
   "name": "file_metadata",
   "version": "0.0.1",
-  "description": "A File Metadata Viewer,
+  "description": "A File Metadata Viewer",
   "engines": {
     "node": "18.x"
     },
