@@ -9,7 +9,7 @@ const port = process.env.PORT || 3000;
 
 // Middleware
 app.use(cors());
-app.use('/public', express.static(process.cwd() + '/public'));
+app.use('/', express.static(process.cwd() + '/public'));
 
 // Multer configuration for handling file uploads
 const upload = multer({ dest: 'uploads/' });
