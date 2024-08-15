@@ -1,7 +1,6 @@
 const express = require('express');
 const multer = require('multer');
 const cors = require('cors');
-const fs = require('fs');
 require('dotenv').config();
 
 const app = express();
@@ -11,8 +10,9 @@ const port = process.env.PORT || 3000;
 app.use(cors());
 app.use('/', express.static(process.cwd() + '/public'));
 
-// Multer configuration for handling file uploads
-const upload = multer({ dest: 'uploads/' });
+// Multer configuration for handling file uploads in memory
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 
 // Route for serving the HTML form
 app.get('/', (req, res) => {
@@ -26,17 +26,10 @@ app.post('/api/fileanalyse', upload.single('upfile'), (req, res) => {
   }
 
   // Extracting file metadata
-  const { originalname, mimetype, size, path } = req.file;
+  const { originalname, mimetype, size } = req.file;
 
   // Sending JSON response with file metadata
   res.json({ name: originalname, type: mimetype, size: size });
-
-  // Delete the uploaded file after sending the response
-  fs.unlink(path, (err) => {
-    if (err) {
-      console.error('Error deleting file:', err);
-    }
-  });
 });
 
 // Start the server
