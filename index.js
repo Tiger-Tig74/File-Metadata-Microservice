@@ -1,6 +1,7 @@
 const express = require('express');
 const multer = require('multer');
 const cors = require('cors');
+const path = require('path');
 require('dotenv').config();
 
 const app = express();
@@ -8,7 +9,7 @@ const port = process.env.PORT || 3000;
 
 // Middleware
 app.use(cors());
-app.use('/', express.static(process.cwd() + '/public'));
+app.use('/', express.static(path.join(__dirname, 'public')));
 
 // Multer configuration for handling file uploads in memory
 const storage = multer.memoryStorage();
@@ -16,7 +17,7 @@ const upload = multer({ storage: storage });
 
 // Route for serving the HTML form
 app.get('/', (req, res) => {
-  res.sendFile(process.cwd() + '/views/index.html');
+    res.sendFile(path.join(__dirname, 'views', 'index.html'));
 });
 
 // Route for handling file uploads and returning metadata
